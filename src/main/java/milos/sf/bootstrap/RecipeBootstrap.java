@@ -113,16 +113,16 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         Notes guacNotes = new Notes();
         guacNotes.setRecipeNote("Elise Bauer is the founder of Simply Recipes. Elise launched Simply Recipes in 2003 as a way to keep track of her family's recipes, and along the way grew it into one of the most popular cooking websites in the world. Elise is dedicated to helping home cooks be successful in the kitchen. Elise is a graduate of Stanford University, and lives in Sacramento, California.");
         guacRecipe.setNotes(guacNotes);
-        guacNotes.setRecipe(guacRecipe);
 
-        guacRecipe.getIngredients().add(new Ingredient("ripe avocado", new BigDecimal(2), tableSpoonUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("KosherSalt", new BigDecimal(".5"), teaSpoonUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(1), tableSpoonUom,guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tableSpoonUom,guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("chiles, stems and seeds removed, minced", new BigDecimal(2), eachUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient(" cilantro (leaves and tender stems), finely chopped", new BigDecimal(2), tableSpoonUom,guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("freshly grated black pepper", new BigDecimal(1), dashUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient(" tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), dashUom,guacRecipe));
+
+        guacRecipe.addIngredient(new Ingredient("ripe avocado", new BigDecimal(2), tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("KosherSalt", new BigDecimal(".5"), teaSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(1), tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("chiles, stems and seeds removed, minced", new BigDecimal(2), eachUom));
+        guacRecipe.addIngredient(new Ingredient(" cilantro (leaves and tender stems), finely chopped", new BigDecimal(2), tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(1), dashUom));
+        guacRecipe.addIngredient(new Ingredient(" tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), dashUom));
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
