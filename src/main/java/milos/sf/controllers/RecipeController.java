@@ -3,14 +3,13 @@ package milos.sf.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import milos.sf.commands.RecipeCommand;
+import milos.sf.exceptions.NotFoundException;
 import milos.sf.service.RecipeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Slf4j
@@ -57,5 +56,16 @@ public class RecipeController {
 
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+        log.error("Handling not found Exception");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error.html");
+
+        return modelAndView;
     }
 }

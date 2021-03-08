@@ -1,6 +1,8 @@
 package milos.sf.controllers;
 
 import milos.sf.Domain.Recipe;
+import milos.sf.exceptions.NotFoundException;
+import milos.sf.repositories.RecipeRepository;
 import milos.sf.service.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,10 @@ public class RecipeConrollerTest {
 
     @Mock
     RecipeService recipeService;
+    @Mock
+    RecipeRepository recipeRepository;
+
+    MockMvc mockMvc;
 
     RecipeController controller;
 
@@ -26,6 +32,18 @@ public class RecipeConrollerTest {
         MockitoAnnotations.initMocks(this);
 
         controller = new RecipeController(recipeService);
+
+    }
+
+    @Test
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+
+        when(recipeRepository.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
 
     }
 

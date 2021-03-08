@@ -5,6 +5,7 @@ import milos.sf.Domain.Recipe;
 import milos.sf.commands.RecipeCommand;
 import milos.sf.converters.RecipeCommandToRecipe;
 import milos.sf.converters.RecipeToRecipeCommand;
+import milos.sf.exceptions.NotFoundException;
 import milos.sf.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
         if(!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe not Found!!!");
+            throw new NotFoundException("Recipe not Found!!!");
         }
         return recipeOptional.get();
     }
