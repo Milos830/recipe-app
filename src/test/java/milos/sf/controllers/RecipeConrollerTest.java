@@ -38,12 +38,22 @@ public class RecipeConrollerTest {
     @Test
     public void getRecipeByIdTestNotFound() throws Exception {
 
-
         when(recipeRepository.findById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("404error"));
+
+    }
+
+    @Test
+    public void getRecipeByIdTestNumberFormat() throws Exception {
+
+//        when(recipeRepository.findById(anyLong())).thenThrow(NumberFormatException.class);
+
+        mockMvc.perform(get("/recipe/dfsdds/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
 
     }
 
