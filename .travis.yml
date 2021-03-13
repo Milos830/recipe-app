@@ -1,2 +1,0 @@
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -t CODECOV_TOKEN='57246c71-6b3e-42ea-970e-5a95baf10306'
