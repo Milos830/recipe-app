@@ -3,7 +3,6 @@ package milos.sf.controllers;
 import milos.sf.Domain.Recipe;
 import milos.sf.commands.RecipeCommand;
 import milos.sf.exceptions.NotFoundException;
-import milos.sf.repositories.RecipeRepository;
 import milos.sf.service.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +23,6 @@ public class RecipeConrollerTest {
 
     @Mock
     RecipeService recipeService;
-    @Mock
-    RecipeRepository recipeRepository;
 
     MockMvc mockMvc;
 
@@ -40,6 +37,20 @@ public class RecipeConrollerTest {
                 .setControllerAdvice(new ControllerExceptionHandler())
                 .build();
 
+    }
+
+    @Test
+    public void testGetRecipe() throws Exception {
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/show"))
+                .andExpect(model().attributeExists("recipe"));
     }
 
     @Test
@@ -90,28 +101,12 @@ public class RecipeConrollerTest {
     @Test
     public void getRecipeByIdTestNumberFormat() throws Exception {
 
-//        when(recipeRepository.findById(anyLong())).thenThrow(NumberFormatException.class);
+        when(recipeService.findById(anyLong())).thenThrow(NumberFormatException.class);
 
         mockMvc.perform(get("/recipe/dfsdds/show"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
 
     }
-
-    @Test
-    public void testGetRecipe() throws Exception {
-
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
-
-        when(recipeService.findById(anyLong())).thenReturn(recipe);
-
-        mockMvc.perform(get("/recipe/show/1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("recipe/show"))
-                .andExpect(model().attributeExists("recipe"));
-    }
-
-
 
 }
