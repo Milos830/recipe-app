@@ -45,7 +45,7 @@ public class RecipeConrollerTest {
     @Test
     public void getRecipeByIdTestNotFound() throws Exception {
 
-        when(recipeRepository.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
@@ -104,7 +104,6 @@ public class RecipeConrollerTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         when(recipeService.findById(anyLong())).thenReturn(recipe);
 
         mockMvc.perform(get("/recipe/show/1"))

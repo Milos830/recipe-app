@@ -77,7 +77,7 @@ public class RecipeController {
         log.error("Handling not found Exception");
         log.error(exception.getMessage());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404error.html");
+        modelAndView.setViewName("404error");
         modelAndView.addObject("exception", exception);
 
         return modelAndView;
